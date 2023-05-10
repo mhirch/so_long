@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:44 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/09 16:38:49 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/10 11:38:26 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,7 +440,7 @@ void	check_path(char **map, t_info *a)
 }
 void	set_image(t_info *data_game)
 {
-	data_game->player = mlx_xpm_file_to_image(data_game->mlx, "textures/player.xpm", &data_game->img_width, &data_game->img_height);
+	data_game->player = mlx_xpm_file_to_image(data_game->mlx, "textures/background.xpm", &data_game->img_width, &data_game->img_height);
 	// data_game->collectible = mlx_xpm_file_to_image(data_game->mlx, "textures/collectible.xpm", &data_game->img_width, &data_game->img_height);
 	// data_game->wall = mlx_xpm_file_to_image(data_game->mlx, "textures/wall.xpm", &data_game->img_width, &data_game->img_height);
 	// data_game->exit = mlx_xpm_file_to_image(data_game->mlx, "textures/exit.xpm", &data_game->img_width, &data_game->img_height);
@@ -453,9 +453,7 @@ void	put_img_to_window(t_info *data_game)
 
 	set_image(data_game);
 	player = get_position(data_game->map, 'P');
-	printf("%d\n", player.x);
-	printf("%d\n", player.y);
-	mlx_put_image_to_window(data_game->mlx, data_game->window, data_game->player, player.x, player.y);
+	mlx_put_image_to_window(data_game->mlx, data_game->window, data_game->player, 1, 1);
 }
 
 int main(int ac, char **av)
@@ -467,6 +465,9 @@ int main(int ac, char **av)
 		check_path(data_game.map, &data_game);
 		data_game.mlx = mlx_init();
 		data_game.window = mlx_new_window(data_game.mlx, data_game.col * 64, data_game.rows * 64, "so_long");
+		data_game.player = mlx_xpm_file_to_image(data_game.mlx, "textures/background.xpm", &data_game.img_width, &data_game.img_height);
+		// player = get_position(data_game->map, 'P');
+		mlx_put_image_to_window(data_game.mlx, data_game.window, data_game.player, 1, 1);
 		put_img_to_window(&data_game);
 		mlx_loop(data_game.mlx);
 	}
