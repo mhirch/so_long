@@ -6,13 +6,13 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:52:50 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/03 16:16:16 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/09 16:36:43 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-
+# include <mlx.h>
 # include <unistd.h>
 # include <stdio.h>
 #include <stdbool.h>
@@ -27,10 +27,23 @@ typedef struct s_position
 	int		x;
 	int		y;
 }	t_position;
+
+
 typedef struct s_info
 {
 	int		rows;
 	int		col;
+	char 	**m;
+	char	**map;
+	void	*mlx;
+	void	*window;
+	void	*player;
+	void	*collectible;
+	void	*exit;
+	void	*wall;
+	void	*background;
+	int		img_width;
+	int		img_height;
 }	t_info;
 
 

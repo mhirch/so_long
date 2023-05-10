@@ -6,12 +6,31 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:44 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/03 16:13:23 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/09 16:38:49 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "so_long.h"
+#include <errno.h>
+
+char	*ft_strdup(const char *s1)
+{
+	char	*str;
+	size_t	i;
+
+	str = malloc(sizeof(char) * ft_strlen(s1) + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i] = 0;
+	return (str);
+}
 
 int	ft_strncmp(const char *str1, const char *str2, size_t l)
 {
@@ -38,7 +57,11 @@ int	count_lines(char *map)
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
 	{
-		write(1, "Error\nmap error", 15);
+		if (write(1, "Error\nmap error", 15) == -1)
+		{
+			perror("write");
+			exit(1);
+		}
 		exit(1);
 	}
 	i = read(fd, c, 1);
@@ -61,7 +84,11 @@ void check_first_last_line(char *s1, char *s2)
 	i = 0;
 	if (!s1[0] || !s2[0])
 	{
-		write(1, "Error\nmap error", 15);
+		if (write(1, "Error\nmap error", 15) == -1)
+		{
+			perror("write");
+			exit(1);
+		}
 		exit(1);
 	}
 	while (s1[i] && s2[i])
@@ -70,7 +97,11 @@ void check_first_last_line(char *s1, char *s2)
 			break ;
 		if (s1[i] != '1' || s2[i] != '1')
 		{
-			write(1, "Error\nmap error", 15);
+			if (write(1, "Error\nmap error", 15) == -1)
+			{
+				perror("write");
+				exit(1);
+			}
 			exit(1);
 		}
 		i++;
@@ -89,7 +120,11 @@ void	check_lines_length(char **s, int n)
 		len1 = ft_strlen(s[i]);
 		if (len0 != len1)
 		{
-			write(1, "Error\nmap error", 15);
+			if (write(1, "Error\nmap error", 15) == -1)
+			{
+				perror("write");
+				exit(1);
+			}
 			exit(1);
 		}
 		i++;
@@ -97,7 +132,11 @@ void	check_lines_length(char **s, int n)
 	len1 = ft_strlen(s[i]);
 	if (len0 != len1 + 1)
 	{
-		write(1, "Error\nmap error", 15);
+		if (write(1, "Error\nmap error", 15) == -1)
+		{
+			perror("write");
+			exit(1);
+		}
 		exit(1);
 	}
 }
@@ -113,7 +152,11 @@ void	check_wall(char **s, int n)
 	{
 		if (s[i][0] != '1' || s[i][len - 1] != '1')
 		{
-			write(1, "Error\nmap error", 15);
+			if (write(1, "Error\nmap error", 15) == -1)
+			{
+				perror("write");
+				exit(1);
+			}
 			exit(1);
 		}
 		i++;
@@ -134,14 +177,22 @@ void	player_collectible_exit(char *s, int *p, int *c, int *e)
 			(*e)++;
 		else if (s[i] != '1' && s[i] != '0')
 		{
-			write(1, "Error\nmap error", 15);
+			if (write(1, "Error\nmap error", 15) == -1)
+			{
+				perror("write");
+				exit(1);
+			}
 			exit(1);
 		}
 		i++;
 	}
 	if ((*p) > 1 || (*e) > 1)
 	{
-		write(1, "Error\nmore than one player and or exit", 38);
+		if (write(1, "Error\nmore than one player and or exit", 38) == -1)
+		{
+			perror("write");
+			exit(1);
+		}
 		exit(1);
 	}
 }
@@ -162,7 +213,11 @@ void	check(char **map_lines, int n)
 	{
 		if (!ft_strncmp(map_lines[i], "\n", 1) || !ft_strncmp(map_lines[n - 1], "\n", 1))
 		{
-			write(1, "Error\nmap error", 15);
+			if (write(1, "Error\nmap error", 15) == -1)
+			{
+				perror("write");
+				exit(1);
+			}
 			exit(1);
 		}
 		player_collectible_exit(map_lines[i], &p, &c, &e);
@@ -179,7 +234,11 @@ char	**check_map(char *map)
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
 	{
-		write(1, "Error\ncould not open file", 25);
+		if (write(1, "Error\ncould not open file", 25) == -1)
+		{
+			perror("write");
+			exit(1);
+		}
 		exit(1);
 	}
 	lines = count_lines(map);
@@ -195,42 +254,6 @@ char	**check_map(char *map)
 	// 	printf("%s", map_lines[i++]);
 	return (map_lines);
 }
-// char **creat_empty_map(char **map)
-// {
-// 	char **m;
-// 	int rows;
-// 	int cols;
-// 	int i;
-// 	int j;
-
-// 	rows = 0;
-// 	while (map[rows])	
-// 		rows++;
-// 	rows--;
-// 	cols = ft_strlen(map[rows]);
-// 	printf("%d\n", cols);
-// 	m = malloc(sizeof(char *) * rows);
-// 	i = 0;
-// 	j = 0;
-// 	while (i < rows)
-//         m[i++] = (char *)malloc(cols* sizeof(char));
-// 	while (i++ < rows )
-//     {
-//         while (j++ < cols - 1) 
-//             m[i][j] = '0';
-//     }
-// 	i = 0;
-// 	j = 0;
-// 	while (i++ < rows)
-// 	{
-//         while (j++ < cols - 1)
-// 		{
-//             printf("%c", m[i][j]);
-//         }
-//         printf("\n");
-//     }
-// 	return (m);
-// }
 
 void	*ft_memset(void *s, int c, size_t n)
 {
@@ -239,72 +262,39 @@ void	*ft_memset(void *s, int c, size_t n)
 
 	ch = s;
 	i = 0;
-	while (i < n - 1)
+	while (i < n - 2)
 		ch[i++] = (unsigned int)c;
+	ch[i++] = '\n';
 	ch[i] = '\0';
 	return (ch);
 }
-// char **creat_empty_map(char **map)
-// {
-//     char **m;
-//     int rows;
-//     int cols;
-//     int i;
-//     int j;
 
-//     // Calculate the number of rows in the map
-//     rows = 0;
-//     while (map[rows])
-//         rows++;
-//     cols = ft_strlen(map[rows-1]);
-
-//     m = malloc(sizeof(char *) * (rows));
-
-//     i = 0;
-//     while (i < rows)
-//     {
-//         m[i] = malloc(cols * sizeof(char));
-//         j = 0;
-//         while (j < cols)
-//         {
-//             m[i][j] = '0';
-//             j++;
-//         }
-//         i++;
-//     }
-//     m[i] = NULL;
-//     i = 0;
-//     while (i < rows)
-//     {
-//         j = 0;
-//         ft_memset(m[i], '0', cols);
-//         printf("\n");
-//         i++;
-//     }
-
-//     return (m);
-// }
-char **creat_empty_map(char **map)
+void duplicate_map(char **map, t_info *a)
 {
-	char **m;
+	int i;
+	int j;
 	
-	int col;
-	int rows;
-	
-	rows = 0;
-	col = 0;
-	while (map[rows])
-		rows++;
-	m = malloc(sizeof(char *) * rows);
-	m[rows--] = NULL;
-	while (map[0][col])
-		col++;
-	while(rows >= 0)
+	a->rows = 0;
+	a->col = 0;
+	while (map[a->rows])
+		a->rows++;
+	a->m = malloc(sizeof(char *) * a->rows + 1);
+	while (map[0][a->col])
+		a->col++;
+	i = 0;
+	while(i < a->rows)
 	{
-		m[rows] = malloc(sizeof(char) * col);
-		ft_memset(m[rows--], 48, col);
+		a->m[i] = malloc(sizeof(char) * a->col);
+		j = 0;
+		while (j <= a->col)
+		{
+			a->m[i][j] = map[i][j];
+			j++;
+		}
+		i++;
 	}
-    return m;
+	a->m[a->rows]  = NULL;
+	a->col--;
 }
 t_position get_position(char **map , char x)
 {
@@ -331,67 +321,153 @@ t_position get_position(char **map , char x)
 	}
 	return (position);
 }
-void	copy_map_m(char **map, char **m)
+void	copy_map_m(char **map, t_info a)
 {
-	int rows;
-	int col;
-	
-	rows = 0;
-	while (map[rows])
+	int i;
+	int j;
+
+	a.rows = 0;
+	a.col = 0;
+	i = 0;
+
+	while (map[a.rows])
+		a.rows++;
+	a.m = malloc(sizeof(char *) * a.rows);
+	while (map[0][a.col])
+		a.col++;
+	printf("\n--%d\n", a.col);
+	while ( i < a.rows)
 	{
-		col = 0;
-		while (map[rows][col])
-		{
-			if (map[rows][col] == 'P' || map[rows][col] == 'C' || map[rows][col] == '1' || map[rows][col] == 'E')
-				m[rows][col] = map[rows][col];
-			col++;
-		}
-		rows++;
+		j = 0;
+		a.m[i] = ft_strdup(map[i]);
+		
+		printf("%s", a.m[i]);
+		i++;
+	}
+	
+	// a.rows = 0;
+	// a.col = 0;
+	// while (map[a.rows])
+	// 	a.rows++;
+	// a.m = malloc(sizeof(char *) * a.rows);
+	// while (map[0][a.col])
+	// 	a.col++;
+	// a.rows = 0;
+	// while (map[a.rows])
+	// {
+	// 	map[a.rows] = malloc(sizeof(char) * a.col);
+	// 	a.col = 0;
+	// 	while (map[a.rows][a.col])
+	// 	{
+	// 			a.m[a.rows][a.col] = map[a.rows][a.col];
+	// 		a.col++;
+	// 	}
+	// 	a.rows++;
+	// }
+}
+int check_roadblock(int x, int y, char **m)
+{
+	if (m[y][x] == 'C' || m[y][x] == '0' || m[y][x] == 'E')
+		return (1);
+	return (0);
+}
+void	set_p_m(char **map, int x, int y)
+{
+	if (check_roadblock(x + 1, y, map))
+	{
+		map[y][x + 1] = 'P';
+		set_p_m(map, x + 1, y);
+	}
+	if (check_roadblock(x - 1, y, map))
+	{
+		map[y][x - 1] = 'P';
+		set_p_m(map, x - 1, y);
+	}
+	if (check_roadblock(x, y + 1, map))
+	{
+		map[y + 1][x] = 'P';
+		set_p_m(map, x, y + 1);
+	}
+	if (check_roadblock(x, y - 1, map))
+	{
+		map[y - 1][x] = 'P';
+		set_p_m(map, x, y - 1);
 	}
 }
-void	set_p_m(char **map, char **m)
+int	calcul_p_c(char **map, int *e, int *c)
 {
-	int rows;
-	int col;
+	int i;
+	int j;
 
+	(*c)= 0;
+	(*e) = 0;
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'C')
+				(*c)++;
+			else if (map[i][j] == 'E')
+				(*e)++;
+			j++;
+		}
+		i++;
+	}
+	if (*c > 0 || *e > 0)
+		return (1);
+	return (0);
+}
+void	check_path(char **map, t_info *a)
+{
+	t_position p;
+	int e;
+	int c;
+	
+	duplicate_map(map, a);
+	p = get_position(map, 'P');
+	set_p_m(a->m, p.x, p.y);
+	if (calcul_p_c(a->m, &e, &c))
+	{
+		if (write(1, "Error\ninvalid map", 17) == -1)
+		{
+			perror("write");
+			exit(1);
+		}
+		exit(1);
+	}
+}
+void	set_image(t_info *data_game)
+{
+	data_game->player = mlx_xpm_file_to_image(data_game->mlx, "textures/player.xpm", &data_game->img_width, &data_game->img_height);
+	// data_game->collectible = mlx_xpm_file_to_image(data_game->mlx, "textures/collectible.xpm", &data_game->img_width, &data_game->img_height);
+	// data_game->wall = mlx_xpm_file_to_image(data_game->mlx, "textures/wall.xpm", &data_game->img_width, &data_game->img_height);
+	// data_game->exit = mlx_xpm_file_to_image(data_game->mlx, "textures/exit.xpm", &data_game->img_width, &data_game->img_height);
+	// data_game->background = mlx_xpm_file_to_image(data_game->mlx, "textures/background.xpm", &data_game->img_width, &data_game->img_height);
 	
 }
-void	check_path(char **map)
+void	put_img_to_window(t_info *data_game)
 {
-	char	**m;
-	t_position p;
-	t_position e;
-	
-	e = get_position(map, 'E');
-	p = get_position(map, 'P');
-	printf("%d | %d\n", e.x, e.y);
-	printf("%d | %d\n", p.x, p.y);
-	m = creat_empty_map(map);
-	copy_map_m(map, m);
-	set_p_m(map, m);
-	if (p.x == e.x && p.y == e.y)
-		return ;
-	printf("\n");
-	printf("%s\n", m[0]);
-	printf("%s\n", m[1]);
-	printf("%s\n", m[2]);
-	printf("%s\n", m[3]);
-	printf("%s\n", m[4]);
-	printf("%s\n", m[5]);
-	printf("%s\n", m[6]);
-	
-	
-	
+	t_position player;
+
+	set_image(data_game);
+	player = get_position(data_game->map, 'P');
+	printf("%d\n", player.x);
+	printf("%d\n", player.y);
+	mlx_put_image_to_window(data_game->mlx, data_game->window, data_game->player, player.x, player.y);
 }
 
 int main(int ac, char **av)
 {
-	char	**map;
-
+	t_info	data_game;
 	if (ac == 2)
 	{
-		map = check_map(av[1]);
-		check_path(map);
+		data_game.map = check_map(av[1]);
+		check_path(data_game.map, &data_game);
+		data_game.mlx = mlx_init();
+		data_game.window = mlx_new_window(data_game.mlx, data_game.col * 64, data_game.rows * 64, "so_long");
+		put_img_to_window(&data_game);
+		mlx_loop(data_game.mlx);
 	}
-
 }
