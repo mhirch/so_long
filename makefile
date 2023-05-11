@@ -6,7 +6,7 @@
 #    By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 18:49:14 by mhirch            #+#    #+#              #
-#    Updated: 2023/05/10 17:45:27 by mhirch           ###   ########.fr        #
+#    Updated: 2023/05/11 16:32:59 by mhirch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,10 @@ OBJ = $(FILES:.c=.o)
 all: $(PROGRAM_NAME)
 
 $(PROGRAM_NAME): $(OBJ) $(HEADER)
-	$(CC) $(OBJ) -g -lmlx -framework OpenGL -framework AppKit -o $(PROGRAM_NAME)
+	$(CC) $(OBJ) -lmlx -framework OpenGL -framework AppKit -o $(PROGRAM_NAME)
 	
 %.o: %.c $(HEADER) $(BONUS_HEADER)
-	$(CC) -g -Imlx $(CFLAGS) -c $< -o $@
+	$(CC) -Imlx $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ) $(BONUS_OBJ)
