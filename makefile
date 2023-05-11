@@ -6,7 +6,7 @@
 #    By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 18:49:14 by mhirch            #+#    #+#              #
-#    Updated: 2023/05/08 18:53:56 by mhirch           ###   ########.fr        #
+#    Updated: 2023/05/10 17:45:27 by mhirch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-FILES = so_long.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c split.c
+FILES = so_long.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+	check.c check_utils.c libft.c moves.c mlx_utils.c utils.c path.c 
 
 OBJ = $(FILES:.c=.o)
 
@@ -27,10 +28,10 @@ OBJ = $(FILES:.c=.o)
 all: $(PROGRAM_NAME)
 
 $(PROGRAM_NAME): $(OBJ) $(HEADER)
-	$(CC) $(OBJ) -lmlx -framework OpenGL -framework AppKit -o $(PROGRAM_NAME)
+	$(CC) $(OBJ) -g -lmlx -framework OpenGL -framework AppKit -o $(PROGRAM_NAME)
 	
 %.o: %.c $(HEADER) $(BONUS_HEADER)
-	$(CC) -Imlx $(CFLAGS) -c $< -o $@
+	$(CC) -g -Imlx $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ) $(BONUS_OBJ)
