@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:52:50 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/13 18:31:40 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/15 15:26:21 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void		no_collectible(void);
 int			count_lines(char *map);
 int			count_collec(char **map);
 int			move(int key_code, t_info *data_game);
-int			calcul_p_c(char **map, int *e, int *c);
+int			check_exit(char **map);
+int			calcul_c(char **map);
 
 #endif
