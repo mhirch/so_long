@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:44 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/11 16:30:07 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/13 18:16:12 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		data_game.moves = 0;
-		write(1, "0\n", 2);
 		data_game.map = check_map(av[1]);
 		check_path(data_game.map, &data_game);
+		write(1, "0\n", 2);
 		data_game.mlx = mlx_init();
 		protect(&data_game, 'i');
 		data_game.window = mlx_new_window(data_game.mlx, data_game.col * 64,

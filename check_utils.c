@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:50 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/11 16:07:56 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/13 18:31:03 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ int	count_lines(char *map)
 	lines++;
 	free(c);
 	return (lines);
+}
+
+void	no_collectible(void)
+{
+	if (write(1, "Error\nthere is no collectible on the map\n", 41) == -1)
+	{
+		perror("write");
+		exit(1);
+	}
+	exit(1);
 }
 
 void	player_collectible_exit(char *s, int *p, int *c, int *e)

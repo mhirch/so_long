@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:07:29 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/11 16:05:12 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/13 18:18:43 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_position	get_position(char **map, char x)
 
 int	check_roadblock(int x, int y, char **m)
 {
-	if (m[y][x] == 'C' || m[y][x] == '0' || m[y][x] == 'E')
+	if (m[y][x] == 'C' || m[y][x] == '0')
 		return (1);
 	return (0);
 }
@@ -106,6 +106,10 @@ void	check_path(char **map, t_info *a)
 	duplicate_map(map, a);
 	p = get_position(map, 'P');
 	set_p_m(a->m, p.x, p.y);
+	int i =0;
+	while (a->m[i])
+		printf("%s", a->m[i++]);
+	printf("\n");
 	if (calcul_p_c(a->m, &e, &c))
 	{
 		if (write(1, "Error\ninvalid map\n", 18) == -1)
