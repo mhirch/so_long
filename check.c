@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:46:09 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/15 15:37:07 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/15 18:38:05 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	check(char **map_lines, int n)
 			erreur();
 		player_collectible_exit(map_lines[i], &p, &c, &e);
 	}
+	check_player_exit(p, e);
 	if (c < 1)
 		no_collectible();
 }

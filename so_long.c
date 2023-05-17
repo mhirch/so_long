@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 13:49:44 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/15 15:14:53 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/16 12:26:59 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 int	exit_game(t_info *data)
 {
+	int	i;
+
+	i = 0;
+	while (data->m[i])
+		free(data->m[i++]);
 	free(data->m);
+	i = 0;
+	while (data->map[i])
+		free(data->map[i++]);
 	free(data->map);
 	exit(0);
 	return (0);
@@ -27,7 +35,8 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		data_game.moves = 0;
-		data_game.map = check_map(av[1]);
+		if (check_map_name(av[1]))
+			data_game.map = check_map(av[1]);
 		check_path(data_game.map, &data_game);
 		write(1, "0\n", 2);
 		data_game.mlx = mlx_init();

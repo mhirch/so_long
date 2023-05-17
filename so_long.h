@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 14:52:50 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/15 15:26:21 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/16 12:10:28 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ t_position	get_position(char **map, char x);
 char		**check_map(char *map);
 void		player_collectible_exit(char *s, int *p, int *c, int *e);
 void		put_img_to_window(t_info *data_game);
+void		check_player_exit(int p, int e);
 void		check_path(char **map, t_info *a);
 void		check_long(int len, int n);
 void		protect(t_info *d, char x);
 void		erreur(void);
 void		no_collectible(void);
+int			check_map_name(char *map);
 int			count_lines(char *map);
 int			count_collec(char **map);
 int			move(int key_code, t_info *data_game);

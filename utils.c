@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:13:06 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/15 15:44:43 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/16 12:25:16 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,45 @@ int	check_exit(char **map)
 	if (map[e.y + 1][e.x] == 'P')
 		return (0);
 	return (1);
+}
+
+void	check_player_exit(int p, int e)
+{
+	if (p > 1 || e > 1)
+	{
+		if (write(1, "Error\nmore than one player and or exit\n", 39) == -1)
+		{
+			perror("write");
+			exit(1);
+		}
+		exit(1);
+	}
+	else if (p < 1 || e < 1)
+	{
+		if (write(1, "Error\nno player and or exit\n", 28) == -1)
+		{
+			perror("write");
+			exit(1);
+		}
+		exit(1);
+	}
+}
+
+int	check_map_name(char *map)
+{
+	int	i;
+
+	i = ft_strlen(map) - 4;
+	if (!ft_strncmp(&map[i], ".ber", 4))
+		return (1);
+	else
+	{
+		if (write(1, "Error\ncould not open file\n", 26) == -1)
+		{
+			perror("write");
+			exit(1);
+		}
+		exit(1);
+	}
+	return (0);
 }

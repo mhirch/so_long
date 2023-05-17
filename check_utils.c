@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:47:50 by mhirch            #+#    #+#             */
-/*   Updated: 2023/05/13 18:31:03 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/05/15 18:37:52 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,5 @@ void	player_collectible_exit(char *s, int *p, int *c, int *e)
 		else if (s[i] != '1' && s[i] != '0')
 			erreur();
 		i++;
-	}
-	if ((*p) > 1 || (*e) > 1)
-	{
-		if (write(1, "Error\nmore than one player and or exit\n", 39) == -1)
-		{
-			perror("write");
-			exit(1);
-		}
-		exit(1);
 	}
 }
